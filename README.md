@@ -1,6 +1,6 @@
 # OmniCommerce Core API
 
-## 📖 Visão geral
+## Visão geral
 Esta solução demonstra uma **Web API de gestão de vendas/e‑commerce** construída com as melhores práticas de arquitetura corporativa:
 - **Clean Architecture & DDD** – camadas bem separadas (Domain, Application, Infrastructure, API).
 - **CQRS + MediatR** – comandos e consultas desacoplados.
@@ -12,7 +12,7 @@ Esta solução demonstra uma **Web API de gestão de vendas/e‑commerce** const
 
 ---
 
-## 📐 Arquitetura
+## Arquitetura
 ```
 src/
 ├─ Api/                 # ASP.NET Core (controllers, middleware, Program.cs)
@@ -28,7 +28,8 @@ src/
 
 ---
 
-## 🚀 Como executar localmente
+## Como executar localmente
+
 ### Pré‑requisitos
 - **.NET 8 SDK** (ou superior) – <https://dotnet.microsoft.com/download>
 - **SQL Server** (ou outro provider configurado em `appsettings.json`).
@@ -56,6 +57,7 @@ src/
    A aplicação ficará disponível em `https://localhost:5001` (ou `http://localhost:5000`).
 
 ### Testando os endpoints
+
 #### 1️⃣ Criar pedido (Cliente)
 ```bash
 curl -X POST https://localhost:5001/api/pedidos \
@@ -79,7 +81,7 @@ curl -X GET https://localhost:5001/api/pedidos/<pedidoId> \
 
 ---
 
-## 🧪 Testes unitários
+## Testes unitários
 O projeto inclui um teste de sucesso para `CreateOrderCommandHandler`:
 ```csharp
 public async Task Handle_ShouldCreateOrderAndReturnId_WhenCommandIsValid()
@@ -91,7 +93,7 @@ dotnet test
 
 ---
 
-## 📦 Tecnologias usadas
+## Tecnologias usadas
 | Camada | Biblioteca / Framework |
 |--------|------------------------|
 | **Domain** | .NET Standard, MediatR |
@@ -101,14 +103,14 @@ dotnet test
 | **Testes** | xUnit, Moq, FluentAssertions |
 
 ---
-## 🔐 JWT Authentication
+
+## JWT Authentication
 
 A API utiliza **JWT (JSON Web Token)** para autenticação e autorização baseada em claims.
 
 ### Configuração
 
 No arquivo `src/Api/appsettings.json` adicione as seguintes chaves:
-
 ```json
 "Jwt": {
   "Authority": "https://seu-dominio.com/",
@@ -116,15 +118,13 @@ No arquivo `src/Api/appsettings.json` adicione as seguintes chaves:
   "Secret": "MySuperSecretKey12345" // chave simétrica usada somente em ambiente de desenvolvimento
 }
 ```
-
-- **Authority** – URL do provedor de identidade (ex.: IdentityServer, Azure AD).  
-- **Audience** – identificador da API que o token deve conter.  
+- **Authority** – URL do provedor de identidade (ex.: IdentityServer, Azure AD).
+- **Audience** – identificador da API que o token deve conter.
 - **Secret** – chave simétrica para assinatura HS256 (apenas para testes locais). Em produção recomenda‑se usar um certificado ou um provedor externo.
 
 ### Geração de token de teste
 
 Para gerar rapidamente um token de teste você pode usar o site **[jwt.io](https://jwt.io)** ou o script PowerShell abaixo:
-
 ```powershell
 # Requires the System.IdentityModel.Tokens.Jwt package
 Add-Type -AssemblyName "System.IdentityModel.Tokens.Jwt"
@@ -145,24 +145,20 @@ $token = $tokenHandler.CreateToken($tokenDescriptor)
 $jwt = $tokenHandler.WriteToken($token)
 Write-Output $jwt
 ```
-
 Exemplo de token gerado (válido por 1 hora):
-
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJyb2xlIjoiQ2xpZW50ZSIsImV4cCI6MTcwMDU0ODQwMH0.KzY4s8Z5K7bGQ9YVd0E2pVb5K0YV0tWcYj6L1Xn2YV8
 ```
-
 Use este token nos cabeçalhos das requisições:
-
 ```bash
 curl -X GET https://localhost:5001/api/pedidos/<pedidoId> \
      -H "Authorization: Bearer <TOKEN_AQUI>"
 ```
+> **Atenção:** nunca envie a chave `Jwt:Secret` para repositórios públicos. Substitua‑a por uma chave segura antes de colocar a aplicação em produção.
 
-> **⚠️ Atenção:** nunca envie a chave `Jwt:Secret` para repositórios públicos. Substitua‑a por uma chave segura antes de colocar a aplicação em produção.
+---
 
-
-## 📈 Badges (opcional – adicionados via GitHub Actions)
+## Badges (opcional – adicionados via GitHub Actions)
 ```
 [![Build](https://github.com/brunofaomoura-max/OmniCommerce-Core-API/actions/workflows/build.yml/badge.svg)](https://github.com/brunofaomoura-max/OmniCommerce-Core-API/actions)
 ```
@@ -170,7 +166,7 @@ curl -X GET https://localhost:5001/api/pedidos/<pedidoId> \
 
 ---
 
-## 🤝 Contribuição
+## Contribuição
 1. Fork o repositório.
 2. Crie uma branch para sua feature (`git checkout -b feat/nova-funcionalidade`).
 3. Commit suas mudanças (`git commit -am 'Add new feature'`).
@@ -178,6 +174,3 @@ curl -X GET https://localhost:5001/api/pedidos/<pedidoId> \
 5. Abra um Pull Request.
 
 ---
-
-## 📜 Licença
-Este projeto está licenciado sob a **MIT License** – veja o arquivo `LICENSE` para mais detalhes.
