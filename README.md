@@ -58,7 +58,7 @@ src/
 
 ### Testando os endpoints
 
-#### 1️⃣ Criar pedido (Cliente)
+#### 1 Criar pedido (Cliente)
 ```bash
 curl -X POST https://localhost:5001/api/pedidos \
      -H "Authorization: Bearer <SEU_JWT_COM_ROLE_Cliente>" \
@@ -71,7 +71,7 @@ curl -X POST https://localhost:5001/api/pedidos \
 - **Resposta 201** – contém o `Id` do pedido criado.
 - Caso a validação falhe, o middleware devolve 400 com `ProblemDetails`.
 
-#### 2️⃣ Obter pedido (Cliente ou Admin)
+#### 2 Obter pedido (Cliente ou Admin)
 ```bash
 curl -X GET https://localhost:5001/api/pedidos/<pedidoId> \
      -H "Authorization: Bearer <SEU_JWT_COM_ROLE_Cliente_ou_Admin>" -k
